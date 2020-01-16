@@ -1,6 +1,5 @@
 const {
   override,
-  fixBabelImports,
   useBabelRc,
   addPostcssPlugins,
   addLessLoader,
@@ -10,11 +9,6 @@ const {
 // process.env.GENERATE_SOURCEMAP = "false";
 
 module.exports = override(
-  fixBabelImports('import', {
-    libraryName: 'antd',
-    libraryDirectory: 'es',
-    style: true
-  }),
   useBabelRc(),
   addPostcssPlugins([require('autoprefixer')]),
   addLessLoader({
