@@ -1,6 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.less'
+
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN'
+import 'dayjs/locale/zh-cn'
+
 import App from './App'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import './index.less'
+
+ReactDOM.render(
+  <ConfigProvider locale={zhCN}>
+    <App />
+  </ConfigProvider>,
+  document.getElementById('root')
+)
