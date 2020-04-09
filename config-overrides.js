@@ -31,15 +31,13 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      '@primary-color': '#3eaf7c'
+      '@primary-color': '#13c2c2'
     }
   }),
   addWebpackAlias({
     '@': resolve('src')
   }),
   // 使用 Day.js 替换 momentjs 优化打包大小
-  addWebpackPlugin(new AntdDayjsWebpackPlugin({
-    preset: 'antdv3'
-  })),
+  addWebpackPlugin(new AntdDayjsWebpackPlugin()),
   useEslintRc('.eslintrc')
 )

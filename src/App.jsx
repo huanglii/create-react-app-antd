@@ -1,70 +1,111 @@
-import React from 'react'
-import { Form, Select, InputNumber, DatePicker, Switch, Slider, Button } from 'antd'
+import React, { useState } from 'react'
+import {
+  Space,
+  Form,
+  Input,
+  Button,
+  Radio,
+  Select,
+  Cascader,
+  DatePicker,
+  InputNumber,
+  TreeSelect,
+  Switch
+} from 'antd'
 import './App.less'
 
-const { Option } = Select
+const App = () => {
+  const [componentSize, setComponentSize] = useState('middle')
+  const onFormLayoutChange = ({ size }) => {
+    setComponentSize(size)
+  }
 
-const App = () => (
-  <div className='app'>
-    <section style={{ textAlign: 'center' }}>
-      <h1 style={{ textAlign: 'center' }}>Ant Design</h1>
-      <img style={{ width: '40px', height: '40px' }} src='https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg' />
-    </section>
-    <Form style={{ marginTop: 32 }}>
-      <Form.Item
-        label='数字输入框'
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 }
+  }
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 8 }
+  }
+
+  return (
+    <div className='app'>
+      <section style={{ textAlign: 'center' }}>
+        <h1 style={{ textAlign: 'center' }}>Ant Design</h1>
+        <img style={{ width: '40px', height: '40px' }} src='https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg' />
+      </section>
+      <Form
+        style={{ marginTop: 32 }}
+        {...layout}
+        layout='horizontal'
+        initialValues={{ size: componentSize }}
+        onValuesChange={onFormLayoutChange}
+        size={componentSize}
       >
-        <InputNumber min={1} max={10} defaultValue={3} />
-        <span className='ant-form-text'> 台机器</span>
-        <a href='https://giser.xyz'>链接文字</a>
-      </Form.Item>
-      <Form.Item
-        label='开关'
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <Switch defaultChecked />
-      </Form.Item>
-      <Form.Item
-        label='滑动输入条'
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <Slider defaultValue={70} />
-      </Form.Item>
-      <Form.Item
-        label='选择器'
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <Select defaultValue='lucy' style={{ width: 192 }}>
-          <Option value='jack'>jack</Option>
-          <Option value='lucy'>lucy</Option>
-          <Option value='disabled' disabled>disabled</Option>
-          <Option value='yiminghe'>yiminghe</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        label='日期选择框'
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <DatePicker />
-      </Form.Item>
-      <Form.Item>
-      </Form.Item>
-      <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
-        <Button type='primary' htmlType='submit'>
-          确定
-        </Button>
-        <Button style={{ marginLeft: 8 }}>
-          取消
-        </Button>
-      </Form.Item>
-    </Form>
-  </div>
-)
+        <Form.Item label='表单尺寸' name='size'>
+          <Radio.Group>
+            <Radio.Button value='small'>Small</Radio.Button>
+            <Radio.Button value='middle'>Middle</Radio.Button>
+            <Radio.Button value='large'>Large</Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label='输入框'>
+          <Input />
+        </Form.Item>
+        <Form.Item label='选择器'>
+          <Select>
+            <Select.Option value='demo'>Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label='树选择'>
+          <TreeSelect
+            treeData={[
+              { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] }
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label='级联选择'>
+          <Cascader
+            options={[
+              {
+                value: 'zhejiang',
+                label: 'Zhejiang',
+                children: [
+                  {
+                    value: 'hangzhou',
+                    label: 'Hangzhou'
+                  }
+                ]
+              }
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label='日期选择器'>
+          <DatePicker.RangePicker />
+        </Form.Item>
+        <Form.Item label='数字输入框'>
+          <InputNumber />
+        </Form.Item>
+        <Form.Item label='开关'>
+          <Switch />
+        </Form.Item>
+        <Form.Item label='按钮'>
+          <Space size={componentSize}>
+            <Button type='primary'>Primary</Button>
+            <Button>Default</Button>
+            <Button type='dashed'>Dashed</Button>
+            <Button type='link'>Link</Button>
+          </Space>
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Space size={componentSize}>
+            <Button type='primary' htmlType='submit'>确定</Button>
+            <Button>取消</Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </div>
+  )
+}
 
 export default App
